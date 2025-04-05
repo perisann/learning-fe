@@ -3,73 +3,124 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BOOLEAN</title>
-    </head>
-    <body>
-      <h1>ROCK PAPER SCISSORS</h1>
-      <button onclick="
-     playGame('ROCK');
-      ">ROCK</button>
+    <title>Rock Paper Scissors</title>
+    <style>
+      body {
+        background-color: rgb(25, 25, 25);
+        color: white;
+        font-family: Arial;
+        text-align: center;
+      }
+      .title {
+        font-size: 30px;
+        font-weight: bold;
+      }
+      .move-icon {
+        height: 50px;
+      }
+      .move-button {
+        background-color: transparent;
+        border: 3px solid white;
+        width: 120px;
+        height: 120px;
+        border-radius: 60px;
+        margin: 10px;
+        cursor: pointer;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .result {
+        font-size: 25px;
+        font-weight: bold;
+        margin-top: 50px;
+      }
+      .score {
+        font-size: 20px;
+        margin-top: 60px;
+      }
+      .result-score-button {
+        background-color: white;
+        font-size: 15px;
+        border: none;
+        width: 150px;
+        padding: 8px 15px;
+  
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <p class="title">ROCK PAPER SCISSORS</p>
+    <button onclick="playGame('ROCK');" 
+    class="move-button">
+      <img title="rock" src="images/rock.svg" 
+      class="move-icon">
+    </button>
+    <button onclick="playGame('PAPER');" 
+    class="move-button">
+      <img title="paper" src="images/paper.svg"
+       class="move-icon">
+    </button>
+    <button onclick="playGame('SCISSORS');" 
+    class="move-button">
+      <img title="scissors" src="images/scissors.svg" 
+      class="move-icon">
+    </button>
+    
+    <p class="js-score score" ></p>
+    <p class="js-result result"></p>
+    <p class="js-computer-choice">
       
-      <button 
-      onclick="
-      playGame('PAPER');
-      ">PAPER</button>
+    </p>
 
+    <button onclick="resetScore();"class="reset-score-button">RESET SCORE</button>
 
-      <button onclick=" 
-      playGame('SCISSORS');
-       
-       ">SCISSORS</button>
+    <script>
+      let score = JSON.parse(localStorage.getItem('score')) || { wins: 0, losses: 0, ties: 0 };
+      updateScore();
 
-
-      <script>
-        function playGame(playerChoice){
-          const computerChoice = pickcomputerChoice();
-         let result ='';
-          if(playerChoice==='SCISSORS'){
-                if(computerChoice==='SCISSORS'){
-                result='TIE!';}
-                else if(computerChoice==='ROCK'){
-                  result='YOU LOST!';}
-                else if(computerChoice==='PAPER'){
-                  result='YOU WON!';}
-           }
-           else if(playerChoice==='ROCK'){
-                if(computerChoice==='ROCK'){
-                result='TIE!';}
-                else if(computerChoice==='PAPER'){
-                  result='YOU LOST!';}
-                else if(computerChoice==='SCISSORS'){
-                  result='YOU WON!';}}
-              
-            else if(playerChoice==='PAPER'){
-                if(computerChoice==='PAPER'){
-              result='TIE!';}
-              else if(computerChoice==='ROCK'){
-                result='YOU LOST!';}
-              else if(computerChoice==='SCISSORS'){
-                result='YOU WON!';}}
-      
-           
-           
-              console.log(`YOU PICKED ${playerChoice}. COMPUTER PICKED
-              ${computerChoice}. ${result}` );
-
-        }
+      function playGame(playerChoice) {
+        const computerChoice = pickComputerChoice();
+        let result = '';
         
-        function pickcomputerChoice(){
-          const randomNumber = Math.random();
-          let computerChoice='';
-          if(randomNumber>=0 && randomNumber<0.33){
-            computerChoice='ROCK';}
-            else if(randomNumber>=0.33 && randomNumber<0.67){
-              computerChoice='PAPER';}
-            else if(randomNumber>=0.67 && randomNumber<1){
-              computerChoice='SCISSORS';}
-              return computerChoice ;
+        if (playerChoice === computerChoice) {
+          result = 'TIE!';
+        } else if (
+          (playerChoice === 'ROCK' && computerChoice === 'SCISSORS') ||
+          (playerChoice === 'PAPER' && computerChoice === 'ROCK') ||
+          (playerChoice === 'SCISSORS' && computerChoice === 'PAPER')
+        ) {
+          result = 'YOU WON!';
+          score.wins++;
+        } else {
+          result = 'YOU LOST!';
+          score.losses++;
         }
-        
-</script>
-    </body> 
-    </html>
+
+        localStorage.setItem('score', JSON.stringify(score));
+        updateScore();
+
+        document.querySelector('.js-result').innerHTML = result;
+        document.querySelector('.js-computer-choice').innerHTML =
+         `YOU <img src="images/${playerChoice}.svg" class= "move-icon">. 
+         COMPUTER  <img src="images/${computerChoice}.svg" class="move-icon">`;
+      }
+
+      function updateScore() {
+        document.querySelector('.js-score').innerHTML = `wins: ${score.wins}, losses: ${score.losses}, ties: ${score.ties}`;
+      }
+
+      function resetScore() {
+        score = { wins: 0, losses: 0, ties: 0 };
+        localStorage.removeItem('score');
+        updateScore();
+      }
+
+      function pickComputerChoice() {
+        const choices = ['ROCK', 'PAPER', 'SCISSORS'];
+        return choices[Math.floor(Math.random() * choices.length)];
+      }
+    </script>
+  </body>
+</html>
