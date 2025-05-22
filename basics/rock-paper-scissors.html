@@ -5,49 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
     <style>
-      body {
-        background-color: rgb(25, 25, 25);
-        color: white;
-        font-family: Arial;
-        text-align: center;
-      }
-      .title {
-        font-size: 30px;
-        font-weight: bold;
-      }
-      .move-icon {
-        height: 50px;
-      }
-      .move-button {
-        background-color: transparent;
-        border: 3px solid white;
-        width: 120px;
-        height: 120px;
-        border-radius: 60px;
-        margin: 10px;
-        cursor: pointer;
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-      }
-      .result {
-        font-size: 25px;
-        font-weight: bold;
-        margin-top: 50px;
-      }
-      .score {
-        font-size: 20px;
-        margin-top: 60px;
-      }
-      .result-score-button {
-        background-color: white;
-        font-size: 15px;
-        border: none;
-        width: 150px;
-        padding: 8px 15px;
-  
-        cursor: pointer;
-      }
+      <link rel="stylesheet" href="styles/rock-paper-scissors.css">
     </style>
   </head>
   <body>
@@ -76,51 +34,11 @@
 
     <button onclick="resetScore();"class="reset-score-button">RESET SCORE</button>
 
-    <script>
-      let score = JSON.parse(localStorage.getItem('score')) || { wins: 0, losses: 0, ties: 0 };
-      updateScore();
-
-      function playGame(playerChoice) {
-        const computerChoice = pickComputerChoice();
-        let result = '';
-        
-        if (playerChoice === computerChoice) {
-          result = 'TIE!';
-        } else if (
-          (playerChoice === 'ROCK' && computerChoice === 'SCISSORS') ||
-          (playerChoice === 'PAPER' && computerChoice === 'ROCK') ||
-          (playerChoice === 'SCISSORS' && computerChoice === 'PAPER')
-        ) {
-          result = 'YOU WON!';
-          score.wins++;
-        } else {
-          result = 'YOU LOST!';
-          score.losses++;
-        }
-
-        localStorage.setItem('score', JSON.stringify(score));
-        updateScore();
-
-        document.querySelector('.js-result').innerHTML = result;
-        document.querySelector('.js-computer-choice').innerHTML =
-         `YOU <img src="images/${playerChoice}.svg" class= "move-icon">. 
-         COMPUTER  <img src="images/${computerChoice}.svg" class="move-icon">`;
-      }
-
-      function updateScore() {
-        document.querySelector('.js-score').innerHTML = `wins: ${score.wins}, losses: ${score.losses}, ties: ${score.ties}`;
-      }
-
-      function resetScore() {
-        score = { wins: 0, losses: 0, ties: 0 };
-        localStorage.removeItem('score');
-        updateScore();
-      }
-
-      function pickComputerChoice() {
-        const choices = ['ROCK', 'PAPER', 'SCISSORS'];
-        return choices[Math.floor(Math.random() * choices.length)];
-      }
+    <script
+      
+      src="scripts/rock-paper-scissors.js">
     </script>
+      
+    
   </body>
 </html>
