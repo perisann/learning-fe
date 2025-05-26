@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Layout</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+        }
+
+        .sidebar {
+            width: 200px;
+            background: #202020;
+            color: white;
+            height: 100vh;
+            padding: 20px;
+            position: fixed;
+        }
+
+        .content {
+            margin-left: 220px;
+            width: 100%;
+        }
+
+        .navbar {
+            background: #fff;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            position: fixed;
+            width: calc(100% - 220px);
+            top: 0;
+            z-index: 1000;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 100px 20px 20px;
+        }
+
+        .video {
+            background: #f1f1f1;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .video img {
+            width: 100%;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>YouTube</h2>
+        <ul>
+            <li>Home</li>
+            <li>Trending</li>
+            <li>Subscriptions</li>
+        </ul>
+    </div>
+    
+    <div class="content">
+        <div class="navbar">
+            <h3>Search Bar</h3>
+        </div>
+        
+        <div class="video-grid">
+            <div class="video">
+                <img src="https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg" alt="Rick Astley - Never Gonna Give You Up">
+                <h4>Rick Astley - Never Gonna Give You Up</h4>
+            </div>
+            <div class="video">
+                <img src="https://i.ytimg.com/vi/3JZ_D3ELwOQ/hqdefault.jpg" alt="Bohemian Rhapsody - Queen">
+                <h4>Bohemian Rhapsody - Queen</h4>
+            </div>
+            <div class="video">
+                <img src="https://i.ytimg.com/vi/LXb3EKWsInQ/hqdefault.jpg" alt="Relaxing Nature Video">
+                <h4>Relaxing Nature Sounds</h4>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
